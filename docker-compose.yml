@@ -1,0 +1,9 @@
+version: '3'
+services:
+  postfix-relay:
+    container_name: postfix-test-relay
+    image: postfix-relay
+    ports:
+      - "25:25"
+    env_file:
+      - .env
