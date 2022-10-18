@@ -15,13 +15,6 @@ RUN apt-get -y install supervisor postfix sasl2-bin libsasl2-modules cyrus-commo
 USER root
 WORKDIR /opt
 
-# Fix saslauthd permissions
-# RUN mkdir -p /var/run/saslauthd && \
-#     mkdir -p /var/spool/postfix/var/run/saslauthd && \
-#     mount --bind /var/spool/postfix/var/run/saslauthd /var/run/saslauthd && \
-#     chown root:sasl /var/run/saslauthd && \
-#     chmod 710 /var/run/saslauthd && \
-#     chmod --reference=/var/run/saslauthd /var/spool/postfix/var/run/saslauthd 
 
 RUN dpkg-statoverride --force-all --update --add root sasl 755 /var/spool/postfix/var/run/saslauthd 
 
