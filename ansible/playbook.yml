@@ -1,0 +1,24 @@
+---
+- hosts: docker-host
+  tasks:
+    - name: Start docker 
+      community.docker.docker_container:
+        name: '{{ item.name }}'
+        image: postfix-relay
+        state: started
+        ports:
+          - "{{ item.port }}:25"
+        env_file: '{{ item.env_file }}'
+      loop: '{{ containers }}'
+      
+  vars:
+    containers:
+      - name: teampass_relay
+        port: 17025
+        env_file: '.env_teampass'
+      - name: wiki_relay
+        port: 17026
+        env_file: '.env_wiki'
+
+
+

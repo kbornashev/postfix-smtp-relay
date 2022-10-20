@@ -1,0 +1,6 @@
+[ftp_server]
+docker-host ansible_host=localhost
+
+[ftp_server:vars]
+ansible_connection=local
+ansible_python_interpreter="{{ansible_playbook_python}}"
