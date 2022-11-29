@@ -129,9 +129,13 @@ postmap /etc/postfix/relay_pass
 ##############################
 # /etc/postfix/rcpt_whitelist
 ##############################
-cat >> /etc/postfix/rcpt_whitelist <<EOF
-$WHITE_DOMAIN OK
-EOF
+IFS=' '
+read -ra ADDR <<<"$WHITE_DOMAIN"
+
+for domain in "${ADDR[@]}"
+do
+  echo "$domain OK" >> /etc/postfix/rcpt_whitelist 
+done
 postmap /etc/postfix/rcpt_whitelist
 
 ####################################
